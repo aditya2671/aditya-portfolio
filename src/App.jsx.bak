@@ -1,0 +1,225 @@
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#education', label: 'Education' },
+  { href: '#certs', label: 'Certifications' },
+  { href: '#contact', label: 'Contact' },
+]
+
+const social = [
+  { href: 'mailto:adityaishan18@gmail.com', label: 'Email' },
+  { href: 'https://www.linkedin.com/in/aditya-ishan-321bb6253', label: 'LinkedIn' },
+  { href: 'https://github.com/aditya2671', label: 'GitHub' },
+]
+
+const skills = {
+  'Programming & Scripting': ['C++', 'Java', 'JavaScript', 'SQL', 'NoSQL', 'HTML', 'CSS'],
+  'Frameworks & Libraries': ['React.js', 'Node.js', 'Express.js', 'Tailwind CSS', 'Recharts'],
+  'Core Competencies': ['DSA', 'System Design', 'API Development', 'AI & ML Basics'],
+  'Tools & Platforms': ['Git', 'GitHub', 'Linux', 'MongoDB', 'PostgreSQL'],
+  'Soft Skills': ['Communication', 'Analytical Thinking', 'Teamwork', 'Multitasking'],
+}
+
+const projects = [
+  {
+    title: 'Finance Management System',
+    stack: ['React', 'Node.js', 'PostgreSQL', 'TailwindCSS', 'Recharts'],
+    points: [
+      'Architected and developed a full‑stack finance application serving 10+ users.',
+      'Designed optimized database schema, improving query response time by ~25%.',
+      'Integrated AI‑powered chatbot for financial queries and interactive data visualization.',
+    ],
+    links: [],
+  },
+  {
+    title: 'Dummy Data Generator',
+    stack: ['JavaScript'],
+    points: [
+      'Engineered a customizable data generation tool supporting multiple formats with instant download functionality.'
+    ],
+    links: [],
+  },
+  {
+    title: 'AI Meeting Scheduler (Ongoing)',
+    stack: ['NLP', 'Chatbot UI', 'AI Integration'],
+    points: [
+      'Designed an AI/NLP‑based scheduler automating multi‑timezone meeting planning.',
+      'Implemented intent detection and chatbot UI for seamless scheduling.'
+    ],
+    links: [],
+  },
+]
+
+const certs = [
+  'IBM Artificial Intelligence Fundamentals — AI and ML Concepts',
+  'IBM Machine Learning Basics — Supervised and Unsupervised Learning',
+  'IBM IT Fundamentals — Networking, Databases, Cybersecurity',
+  'Coursera Linux Fundamentals — CLI, Shell Scripting, System Administration',
+  'Cisco Networking Academy: Introduction to Modern AI (Sep 2025)'
+]
+
+function useDarkMode() {
+  const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark')
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+    localStorage.setItem('theme', dark ? 'dark' : 'light')
+  }, [dark])
+  return [dark, setDark]
+}
+
+export default function App() {
+  const [dark, setDark] = useDarkMode()
+
+  return (
+    <div className="text-neutral-800 dark:text-neutral-200">
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-neutral-950/70 border-b border-neutral-200 dark:border-neutral-800">
+        <nav className="container-max flex items-center gap-4 py-3">
+          <a href="#" className="font-semibold">Aditya Ishan</a>
+          <div className="ml-auto hidden md:flex items-center gap-3">
+            {links.map(l => (
+              <a key={l.href} href={l.href} className="text-sm hover:opacity-80">{l.label}</a>
+            ))}
+            <a href="/Aditya_Ishan_Resume.pdf" className="btn btn-primary ml-2" download>Download Resume</a>
+            <button aria-label="Toggle dark mode" onClick={() => setDark(!dark)} className="btn"> {dark ? 'Light' : 'Dark'} </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero */}
+      <section className="container-max grid md:grid-cols-[1.2fr,0.8fr] items-center gap-8 py-14">
+        <div>
+          <motion.h1 initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.5}} className="text-3xl md:text-5xl font-bold leading-tight">
+            Full‑Stack Developer (MERN) — Building scalable, user‑focused products with AI integration.
+          </motion.h1>
+          <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+            Bangalore, Karnataka · +91 7061177513
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {social.map(s => (
+              <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className="btn">{s.label}</a>
+            ))}
+          </div>
+        </div>
+        <motion.div initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} transition={{duration:0.6}} className="card p-6 flex flex-col items-center justify-center">
+          <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-neutral-200 to-neutral-400 dark:from-neutral-700 dark:to-neutral-600 grid place-content-center text-4xl font-bold">
+            AI
+          </div>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Aditya Ishan</p>
+        </motion.div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="container-max py-10">
+        <h2 className="section-title">About</h2>
+        <div className="card p-6 mt-4 leading-relaxed">
+          <p>
+            Hands‑on full‑stack developer with expertise in the MERN stack. Strong in DSA, OOP, system design basics, AI integration, and problem‑solving.
+            Experienced in building scalable web applications and delivering user‑focused products. Strong communicator with proven teamwork, analytical
+            thinking, and adaptability in dynamic environments.
+          </p>
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section id="skills" className="container-max py-10">
+        <h2 className="section-title">Technical Skills</h2>
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          {Object.entries(skills).map(([k,v]) => (
+            <div key={k} className="card p-5">
+              <p className="font-semibold">{k}</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {v.map(item => <span key={item} className="badge">{item}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section id="projects" className="container-max py-10">
+        <h2 className="section-title">Projects</h2>
+        <div className="grid md:grid-cols-2 gap-6 mt-4">
+          {projects.map((p) => (
+            <motion.article key={p.title} initial={{opacity:0, y:8}} whileInView={{opacity:1, y:0}} viewport={{once:true}} className="card p-6">
+              <h3 className="text-xl font-semibold">{p.title}</h3>
+              <div className="mt-2 flex flex-wrap gap-2">{p.stack.map(s => <span key={s} className="badge">{s}</span>)}</div>
+              <ul className="list-disc pl-5 mt-3 space-y-2">
+                {p.points.map(pt => <li key={pt}>{pt}</li>)}
+              </ul>
+              {p.links?.length ? (
+                <div className="mt-3 flex gap-3">{p.links.map(l => <a key={l.href} href={l.href} className="btn">Live</a>)}</div>
+              ) : null}
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section id="experience" className="container-max py-10">
+        <h2 className="section-title">Experience</h2>
+        <div className="card p-6 mt-4">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <p className="font-semibold">Jain University — In‑house Intern</p>
+            <span className="mono text-neutral-500">Jun 2024 – Present · Bangalore, India</span>
+          </div>
+          <ul className="list-disc pl-5 mt-3 space-y-2">
+            <li>Developed a password‑strength checker and manager used by 20+ students, reducing weak password usage by ~40%.</li>
+            <li>Led a group project on finance management with an AI‑based chatbot, improving query resolution by ~30%.</li>
+            <li>Applied system design principles to create scalable, secure project architectures.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Education */}
+      <section id="education" className="container-max py-10">
+        <h2 className="section-title">Education</h2>
+        <div className="grid gap-4 mt-4 md:grid-cols-2">
+          <div className="card p-6">
+            <p className="font-semibold">Jain University</p>
+            <p className="mono">B.Tech in Computer Science · 2022 – 2026 (Expected) · Bangalore, India</p>
+          </div>
+          <div className="card p-6">
+            <p className="font-semibold">Neelmani Kedarnath Higher Secondary School</p>
+            <p className="mono">XII (Bihar Board) · 2022 · Bihar, India</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section id="certs" className="container-max py-10">
+        <h2 className="section-title">Certifications</h2>
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          {certs.map(c => (
+            <div key={c} className="card p-5">{c}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="container-max py-10">
+        <h2 className="section-title">Contact</h2>
+        <div className="card p-6 mt-4">
+          <p>Have an opportunity or want to collaborate?</p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <a className="btn btn-primary" href="mailto:adityaishan18@gmail.com?subject=Opportunity%20for%20Aditya%20Ishan">Email Me</a>
+            <a className="btn" href="https://www.linkedin.com/in/aditya-ishan-321bb6253" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a className="btn" href="https://github.com/aditya2671" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-neutral-200 dark:border-neutral-800 py-6 mt-8">
+        <div className="container-max text-sm flex flex-wrap gap-2 justify-between">
+          <span>© {new Date().getFullYear()} Aditya Ishan</span>
+          <a className="hover:opacity-80" href="/Aditya_Ishan_Resume.pdf" download>Download Resume</a>
+        </div>
+      </footer>
+    </div>
+  )
+}
