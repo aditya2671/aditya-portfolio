@@ -283,7 +283,6 @@ export default function App() {
               <button type="submit" className="btn btn-primary">Send Message</button>
               <span className="mono text-sm">{/* form status */}</span>
             </div>
-            <p className="mt-2 text-xs text-neutral-500">Tip: To enable direct sending from the site, set up EmailJS and add keys to your Vercel environment variables (`VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`).</p>
           </form>
         </div>
       </section>
